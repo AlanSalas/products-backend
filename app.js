@@ -5,6 +5,7 @@ import dbConnection from "./config/database.js";
 import { PORT } from "./config/constants.js";
 
 // Routes
+import welcomeRoute from "./routes/welcome.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import productRoutes from "./routes/product.js";
@@ -20,6 +21,7 @@ const App = () => {
   app.use(express.json());
 
   // Add routes
+  app.use("/", welcomeRoute);
   app.use("/api", authRoutes);
   app.use("/api", userRoutes);
   app.use("/api", productRoutes);
