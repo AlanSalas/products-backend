@@ -8,6 +8,7 @@ import { PORT } from "./config/constants.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import productRoutes from "./routes/product.js";
+import categoryRoutes from "./routes/category.js";
 
 const App = () => {
   // App
@@ -22,6 +23,7 @@ const App = () => {
   app.use("/api", authRoutes);
   app.use("/api", userRoutes);
   app.use("/api", productRoutes);
+  app.use("/api", categoryRoutes);
 
   app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
