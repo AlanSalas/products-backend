@@ -13,12 +13,12 @@ const router = express.Router();
 
 router.post(
   "/product",
-  [mdAuth.verifyToken, upload.single("image", mdYup(yup.createProductSchema))],
+  [mdAuth.verifyToken, upload.single("image"), mdYup(yup.createProductSchema)],
   ProductController.createProduct
 );
 router.put(
   "/product/:id",
-  [mdAuth.verifyToken, upload.single("image", mdYup(yup.createProductSchema))],
+  [mdAuth.verifyToken, upload.single("image"), mdYup(yup.createProductSchema)],
   ProductController.updateProduct
 );
 router.get("/products", [mdAuth.verifyToken], ProductController.getProducts);
