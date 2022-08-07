@@ -44,6 +44,10 @@ class Yup {
     price: yup.number().required({ message: "Price is required." }),
     description: yup.string().trim(),
   });
+
+  createCategorySchema = yup.object().shape({
+    name: yup.string().trim().required({ message: "Name is required." }),
+  });
 }
 
 export default new Yup();
