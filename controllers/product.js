@@ -24,7 +24,7 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const updateProduct = _.pick(req.body, ["title", "price", "description"]);
+  const updateProduct = _.pick(req.body, ["title", "price", "description", "category"]);
   const image = req.file ? req.file : null;
 
   try {

@@ -6,6 +6,7 @@ const ProductSchema = new Schema(
     title: String,
     price: Schema.Types.Decimal128,
     description: String,
+    category: String,
     image: {
       publicId: String,
       secureUrl: String,
