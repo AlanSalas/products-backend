@@ -93,7 +93,7 @@ const getById = async (id) => {
         name: ownerProduct?.name,
         lastName: ownerProduct?.lastName,
         username: ownerProduct?.username,
-        image: product?.image,
+        image: ownerProduct?.image,
       },
     };
   } catch (error) {
