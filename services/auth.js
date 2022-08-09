@@ -80,7 +80,7 @@ const sendLinkToActivateUser = async (id) => {
       };
     }
     const token = await jwt.createToken(user, "20min");
-    const url = token && `${process.env.URL_CLIENT}activacion/${token}`;
+    const url = token && `${process.env.URL_CLIENT}activation/${token}`;
     const emailConfig = emailConfigActivateAccount(user, url);
     await nodemailer.prepareAndSendEmail(emailConfig);
   } catch (error) {

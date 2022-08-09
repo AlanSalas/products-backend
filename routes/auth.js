@@ -13,7 +13,7 @@ router.post("/register", [mdYup(yup.userRegisterSchema)], authController.registe
 router.post("/login", [mdYup(yup.userLoginSchema)], authController.login);
 router.post("/forgot-password", [mdYup(yup.forgotPasswordSchema)], authController.forgotPassword);
 router.put("/update-password", [mdAuth.verifyToken, mdYup(yup.updatePasswordSchema)], authController.updatePassword);
-router.put("/activation", [mdAuth.verifyToken], authController.activateUser);
+router.put("/activation/:id", authController.activateUser);
 router.post("/activation-email/:id", authController.sendLinkToActivate);
 
 export default router;

@@ -76,7 +76,7 @@ const updatePassword = async (req, res) => {
 };
 
 const activateUser = async (req, res) => {
-  const { id } = req.user;
+  const { id } = req.params;
 
   try {
     await authService.activateUser(id);
