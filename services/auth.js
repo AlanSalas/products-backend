@@ -44,10 +44,10 @@ const forgotPasswordUser = async (email) => {
   }
 };
 
-const updatePasswordUser = async (user, password) => {
+const updatePasswordUser = async (id, password) => {
   try {
     const encryptPassword = bcrypt.hashSync(password, 10);
-    await userService.update(user.id, { password: encryptPassword });
+    await userService.update(id, { password: encryptPassword });
   } catch (error) {
     throw error;
   }

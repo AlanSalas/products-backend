@@ -56,11 +56,11 @@ const forgotPassword = async (req, res) => {
 };
 
 const updatePassword = async (req, res) => {
-  const user = req.user;
+  const { id } = req.params;
   const { password } = req.body;
 
   try {
-    await authService.updatePasswordUser(user, password);
+    await authService.updatePasswordUser(id, password);
     res.status(200).json({
       ok: true,
       status: 200,
