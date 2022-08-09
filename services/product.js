@@ -34,7 +34,7 @@ const update = async (id, newData, image) => {
 };
 
 // Get products
-const get = async () => {
+const get = async (search, category) => {
   try {
     const products = await Product.find();
     const productsWithObjUser = await Promise.all(
@@ -57,7 +57,19 @@ const get = async () => {
         };
       })
     );
-    return productsWithObjUser;
+    const filterProducts = productsWithObjUser.filter((product) => {
+      return product.title.toLowerCase().includes(search.toLowerCase());
+    });
+
+    if (search.length === 0 && category.length === 0) {
+      return productsWithObjUser;
+    } else if (search.length === 0 && category.length > 0) {
+      return productsWithObjUser.filter((product) => product.category === category);
+    } else if (search.length > 0) {
+      return filterProducts;
+    } else if (search.length > 0 && category.length > 0) {
+      return filterProducts.filter((product) => product.category === category);
+    }
   } catch (error) {
     throw { ok: false, status: error?.status || 500, message: error?.message || error };
   }

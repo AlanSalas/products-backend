@@ -44,8 +44,9 @@ const updateProduct = async (req, res) => {
 };
 
 const getProducts = async (req, res) => {
+  const { search, category } = req.query;
   try {
-    const products = await productService.get();
+    const products = await productService.get(search, category);
     res.status(200).json({
       ok: true,
       status: 200,
