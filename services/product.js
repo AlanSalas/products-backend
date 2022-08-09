@@ -46,11 +46,13 @@ const get = async () => {
           price: product?.price,
           description: product?.description,
           image: product?.image,
+          category: product?.category,
           user: {
             _id: user?._id,
             name: user?.name,
             lastName: user?.lastName,
             username: user?.username,
+            image: user?.image,
           },
         };
       })
@@ -73,11 +75,13 @@ const getById = async (id) => {
       price: product?.price,
       description: product?.description,
       image: product?.image,
+      category: product?.category,
       user: {
         _id: ownerProduct?._id,
         name: ownerProduct?.name,
         lastName: ownerProduct?.lastName,
         username: ownerProduct?.username,
+        image: product?.image,
       },
     };
   } catch (error) {
