@@ -6,9 +6,14 @@ import fs from "fs-extra";
 // Create product
 const create = async (product, image) => {
   try {
-    const savedImage = image && (await cloudinary.uploadImage(image?.path));
-    product.image = savedImage && { publicId: savedImage?.public_id, secureUrl: savedImage?.secure_url };
-    savedImage && (await fs.unlink(image?.path));
+    if (image) {
+      const savedImage = image && (await cloudinary.uploadImage(image?.path));
+      product.image = savedImage && { publicId: savedImage?.public_id, secureUrl: savedImage?.secure_url };
+      savedImage && (await fs.unlink(image?.path));
+    } else {
+      product.image = null;
+    }
+
     const newProduct = new Product(product);
     const savedProduct = await Product.create(newProduct);
     return savedProduct;
@@ -22,10 +27,16 @@ const update = async (id, newData, image) => {
   try {
     if (!id) throw { ok: false, status: 400, message: `The id is required.` };
     const product = await Product.findById(id);
-    const updatedImage = image && (await cloudinary.uploadImage(image?.path));
-    newData.image = updatedImage && { publicId: updatedImage?.public_id, secureUrl: updatedImage?.secure_url };
-    updatedImage && (await fs.unlink(image.path));
-    product?.image?.publicId && (await cloudinary.removeImage(product?.image?.publicId));
+
+    if (image) {
+      const updatedImage = await cloudinary.uploadImage(image?.path);
+      newData.image = updatedImage && { publicId: updatedImage?.public_id, secureUrl: updatedImage?.secure_url };
+      updatedImage && (await fs.unlink(image.path));
+      product?.image?.publicId && (await cloudinary.removeImage(product?.image?.publicId));
+    } else {
+      newData.image = product?.image;
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(id, newData);
     return updatedProduct;
   } catch (error) {
