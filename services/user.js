@@ -47,10 +47,14 @@ const update = async (id, newData, image) => {
   try {
     if (!id) throw { ok: false, status: 400, message: "The id is required." };
     const user = await User.findById(id);
-    const updatedImage = image && (await cloudinary.uploadImage(image?.path));
-    newData.image = updatedImage && { publicId: updatedImage?.public_id, secureUrl: updatedImage?.secure_url };
-    updatedImage && (await fs.unlink(image.path));
-    user?.image?.publicId && (await cloudinary.removeImage(user?.image?.publicId));
+    if (image) {
+      const updatedImage = image && (await cloudinary.uploadImage(image?.path));
+      newData.image = updatedImage && { publicId: updatedImage?.public_id, secureUrl: updatedImage?.secure_url };
+      updatedImage && (await fs.unlink(image.path));
+      user?.image?.publicId && (await cloudinary.removeImage(user?.image?.publicId));
+    } else {
+      newData.image = user?.image;
+    }
     const updatedUser = await User.findByIdAndUpdate(id, newData);
     return updatedUser;
   } catch (error) {
